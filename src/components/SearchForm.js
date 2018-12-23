@@ -1,13 +1,12 @@
  import React from 'react';
+ import '../containers/App.css';
 
 
 const searchForm = (props) => {
     
     return (
-        <div>
+        <div className = 'search'>
                 Course: <input type='text' onChange={props.change} />
-                {/*<button onClick={props.click}> Search </button>*/}
-        
         </div>
 
     );

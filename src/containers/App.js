@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import SearchForm from '../components/SearchForm';
 import DisplayCourse from '../components/DisplayCourses';
+import SemesterTables from '../components/SemesterTables';
 
-//import './App.css';
+
 import courses from '../courses';
 
 class App extends Component {
@@ -16,6 +17,13 @@ class App extends Component {
 
   getInputValue = (event) => {
     let name = event.target.value;
+    console.log(name);
+
+    if (name.length === 0) {
+      this.setState({ searchCourses: [] });
+      return;
+    }
+
     const schoolCourses = this.state.courses;
 
     let filteredCourses = schoolCourses.filter((course) => {
@@ -23,15 +31,20 @@ class App extends Component {
     });
 
     this.setState({ searchCourses: filteredCourses })
-    
+
   }
-
-  //  returnNewCourses = () => {
-  //   console.log(this.state.searchCourses)
-  // }
-
-
   render() {
+
+    let searchCoursesChecked = null;
+    if (this.state.searchCourses.length !== 0) {
+
+      searchCoursesChecked = (
+        <div>
+          <DisplayCourse newCourses={this.state.searchCourses} />
+        </div>
+      );
+    }
+
 
     return (
       <div>
@@ -39,14 +52,8 @@ class App extends Component {
           courses={this.state.courses}
           change={this.getInputValue} />
 
-        {
-          this.state.searchCourses.length !== 0 ? 
-          <div>
-            <DisplayCourse newCourses={this.state.searchCourses} />
-          </div>
-            : null
-        }
-
+        {searchCoursesChecked}
+        <SemesterTables />
       </div>
     );
   }

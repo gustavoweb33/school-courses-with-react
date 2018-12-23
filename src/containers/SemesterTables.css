@@ -1,0 +1,16 @@
+.grid-container {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.grid-container div {
+    text-align: center;
+    margin: 10px;
+    border: 1px solid black;
+   
+}
+
+ul {
+    list-style-type: none;
+}

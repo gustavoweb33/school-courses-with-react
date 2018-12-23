@@ -1,10 +1,13 @@
 import React from 'react';
+import '../containers/CourseCards.css'
 
 const CoursesCard = (props) => {
-    console.log(props.enrollment);
     return (
         <div>
-            <p>{props.enrollment}</p>
+            <div className='container'>
+                <h6>{props.enrollment}</h6>
+                <input type='checkbox' value={props.enrollment} />{props.enrollment}
+            </div>
         </div>
     );
 }
