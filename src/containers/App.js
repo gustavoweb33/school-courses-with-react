@@ -41,6 +41,12 @@ class App extends Component {
     console.log(semester);
   }
 
+  getCheckBoxValue = (event) => {
+    if (event.target.checked) {
+      console.log(event.target.value);
+    }
+  }
+
   render() {
 
     let searchCoursesChecked = null;
@@ -48,7 +54,7 @@ class App extends Component {
 
       searchCoursesChecked = (
         <div>
-          <DisplayCourse newCourses={this.state.searchCourses} />
+          <DisplayCourse newCourses={this.state.searchCourses} check={this.getCheckBoxValue} />
         </div>
       );
     }
@@ -58,8 +64,8 @@ class App extends Component {
       <div>
         <SearchForm
           courses={this.state.courses}
-          change={this.getInputValue} 
-          submit={this.getSemesterValue}/>
+          change={this.getInputValue}
+          submit={this.getSemesterValue} />
 
         {searchCoursesChecked}
         <SemesterTables />

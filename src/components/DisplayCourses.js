@@ -12,7 +12,7 @@ const DisplayCourses = (props) => {
         <div>
             {
                 coursesArray.map((course, i) => {
-                    return <CourseCard key={i} enrollment={course} />
+                    return <CourseCard key={i} enrollment={course} check={props.check}/>
                 })
             }
 
