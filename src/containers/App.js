@@ -11,7 +11,8 @@ class App extends Component {
     super();
     this.state = {
       courses: courses,
-      searchCourses: []
+      searchCourses: [],
+      semester: []
     }
   }
 
@@ -33,6 +34,13 @@ class App extends Component {
     this.setState({ searchCourses: filteredCourses })
 
   }
+
+  getSemesterValue = (event) => {
+    event.preventDefault();
+    const semester = event.target.value;
+    console.log(semester);
+  }
+
   render() {
 
     let searchCoursesChecked = null;
@@ -50,7 +58,8 @@ class App extends Component {
       <div>
         <SearchForm
           courses={this.state.courses}
-          change={this.getInputValue} />
+          change={this.getInputValue} 
+          submit={this.getSemesterValue}/>
 
         {searchCoursesChecked}
         <SemesterTables />
