@@ -12,10 +12,10 @@ const DisplayCourses = (props) => {
         <div>
             {
                 coursesArray.map((course, i) => {
-                    return <CourseCard key={i} enrollment={course} check={props.check}/>
+                    return <CourseCard key={i} enrollment={course} checkCheckbox={props.checkCheckbox} />
                 })
             }
-
+          
         </div>
     );
 }

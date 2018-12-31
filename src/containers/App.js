@@ -12,13 +12,12 @@ class App extends Component {
     this.state = {
       courses: courses,
       searchCourses: [],
-      semester: []
+      checkedCourses: []
     }
   }
 
   getInputValue = (event) => {
     let name = event.target.value;
-    console.log(name);
 
     if (name.length === 0) {
       this.setState({ searchCourses: [] });
@@ -42,19 +41,27 @@ class App extends Component {
   }
 
   getCheckBoxValue = (event) => {
-    if (event.target.checked) {
-      console.log(event.target.value);
+    let checkedCoursesList = [...this.state.checkedCourses];
+
+    if (!(this.state.checkedCourses.includes(event.target.value)) && event.target.checked) {
+      checkedCoursesList.push(event.target.value)
     }
+    else {
+      alert('course already included');
+    }
+
+    this.setState({ checkedCourses: checkedCoursesList });
   }
 
-  render() {
 
+  render() {
+    console.log('object:' + this.state.checkedCourses)
     let searchCoursesChecked = null;
     if (this.state.searchCourses.length !== 0) {
 
       searchCoursesChecked = (
         <div>
-          <DisplayCourse newCourses={this.state.searchCourses} check={this.getCheckBoxValue} />
+          <DisplayCourse newCourses={this.state.searchCourses} checkCheckbox={this.getCheckBoxValue} />
         </div>
       );
     }
@@ -75,5 +82,3 @@ class App extends Component {
 }
 
 export default App;
-
-//create an input -> takes its value and pass it to forms.js -> loop through the courses that match the value and pass it to selectCourses.js to render them.
