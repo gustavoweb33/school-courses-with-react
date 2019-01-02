@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import SearchForm from '../components/SearchForm';
 import DisplayCourse from '../components/DisplayCourses';
 import SemesterTables from '../components/SemesterTables';
-
-
 import courses from '../courses';
+
 
 class App extends Component {
   constructor() {
@@ -68,7 +67,7 @@ class App extends Component {
 
 
     return (
-      <div>
+      <div >
         <SearchForm
           courses={this.state.courses}
           change={this.getInputValue}
