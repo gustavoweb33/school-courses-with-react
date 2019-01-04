@@ -11,7 +11,13 @@ class App extends Component {
     this.state = {
       courses: courses,
       searchCourses: [],
-      checkedCourses: []
+      checkedCourses: [],
+      semester: [
+        { one: 'one' },
+        { two: 'two' },
+        { three: 'three' },
+        { four: 'four' }
+      ]
     }
   }
 
@@ -35,8 +41,15 @@ class App extends Component {
 
   getSemesterValue = (event) => {
     event.preventDefault();
-    const semester = event.target.value;
-    console.log(semester);
+    const selectedSemester = Number(event.target.value);
+
+
+    for(let i = 0; i < this.state.semester.length; i++) {
+      if(i === selectedSemester) {
+        //console.log(this.state.semester[i]);
+        this.displayValue(this.state.semester[i]);
+      }
+    }
   }
 
   getCheckBoxValue = (event) => {
@@ -54,7 +67,7 @@ class App extends Component {
 
 
   render() {
-    console.log('object:' + this.state.checkedCourses)
+    //console.log('object:' + this.state.checkedCourses)
     let searchCoursesChecked = null;
     if (this.state.searchCourses.length !== 0) {
 
