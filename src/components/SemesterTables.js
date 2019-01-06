@@ -1,28 +1,22 @@
 import React from 'react';
 import '../containers/SemesterTables.css';
 
-const SemesterTables = () => {
+
+const SemesterTables = (props) => {
+    let userChosenSemester = props.semesterValue;
+    const userChosenCourses = props.chosenCourses;
+    console.log(userChosenCourses);
     return (
         <div className='grid-container'>
             <div>
-                <h3>Semester One</h3>
-                <ul>
-                    <li>One</li>
-                    <li>Two</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Semester Two</h3>
-                <ul>
-                    <li>One</li>
-                    <li>Two</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Semester Three</h3>
-            </div>
-            <div>
-                <h3>Semester Four</h3>
+                <h3>Smester:  {userChosenSemester}</h3>
+                
+                    {
+                        userChosenCourses.map(course => {
+                            return <li key={course}>{course}</li>
+                        })
+                    }
+               
             </div>
         </div>
     );

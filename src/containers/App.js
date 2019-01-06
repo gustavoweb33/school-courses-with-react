@@ -12,17 +12,14 @@ class App extends Component {
       courses: courses,
       searchCourses: [],
       checkedCourses: [],
-      semester: [
-        { one: 'one' },
-        { two: 'two' },
-        { three: 'three' },
-        { four: 'four' }
-      ]
+      previousState: {},
+      semesterCourses: [],
+      semesterChosen: 0
     }
   }
 
   getInputValue = (event) => {
-    let name = event.target.value;
+    const name = event.target.value;
 
     if (name.length === 0) {
       this.setState({ searchCourses: [] });
@@ -31,7 +28,7 @@ class App extends Component {
 
     const schoolCourses = this.state.courses;
 
-    let filteredCourses = schoolCourses.filter((course) => {
+    const filteredCourses = schoolCourses.filter((course) => {
       return course.prefix.toLowerCase().includes(name.toLowerCase());
     });
 
@@ -42,18 +39,12 @@ class App extends Component {
   getSemesterValue = (event) => {
     event.preventDefault();
     const selectedSemester = Number(event.target.value);
-
-
-    for(let i = 0; i < this.state.semester.length; i++) {
-      if(i === selectedSemester) {
-        //console.log(this.state.semester[i]);
-        this.displayValue(this.state.semester[i]);
-      }
-    }
+    this.setState({ semesterChosen: selectedSemester })
   }
 
   getCheckBoxValue = (event) => {
-    let checkedCoursesList = [...this.state.checkedCourses];
+    //remove the unchecked boxes(courses) from the array
+    const checkedCoursesList = [...this.state.checkedCourses];
 
     if (!(this.state.checkedCourses.includes(event.target.value)) && event.target.checked) {
       checkedCoursesList.push(event.target.value)
@@ -67,7 +58,6 @@ class App extends Component {
 
 
   render() {
-    //console.log('object:' + this.state.checkedCourses)
     let searchCoursesChecked = null;
     if (this.state.searchCourses.length !== 0) {
 
@@ -87,7 +77,9 @@ class App extends Component {
           submit={this.getSemesterValue} />
 
         {searchCoursesChecked}
-        <SemesterTables />
+        <SemesterTables 
+        semesterValue={this.state.semesterChosen}
+        chosenCourses={this.state.checkedCourses}/>
       </div>
     );
   }
