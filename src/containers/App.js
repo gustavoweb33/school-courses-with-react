@@ -43,21 +43,28 @@ class App extends Component {
   }
 
   getCheckBoxValue = (event) => {
-    //remove the unchecked boxes(courses) from the array
     const checkedCoursesList = [...this.state.checkedCourses];
+    const courseIndex = checkedCoursesList.indexOf(event.target.value)
 
     if (!(this.state.checkedCourses.includes(event.target.value)) && event.target.checked) {
       checkedCoursesList.push(event.target.value)
+    } //to remove the courses that were previously selected and not remove them by index.
+    else if (checkedCoursesList.includes(checkedCoursesList[courseIndex])) {
+      checkedCoursesList.splice(courseIndex, 1);
     }
-    else {
-      alert('course already included');
-    }
+
+//TODO: ensure courses that were added remain checked
+    // if (checkedCoursesList.includes(event.target.value)) {
+    //   event.target.checked = true;
+    //   console.log('already included')
+    // }
 
     this.setState({ checkedCourses: checkedCoursesList });
   }
 
 
   render() {
+    console.log(this.state.checkedCourses)
     let searchCoursesChecked = null;
     if (this.state.searchCourses.length !== 0) {
 
@@ -77,9 +84,9 @@ class App extends Component {
           submit={this.getSemesterValue} />
 
         {searchCoursesChecked}
-        <SemesterTables 
-        semesterValue={this.state.semesterChosen}
-        chosenCourses={this.state.checkedCourses}/>
+        <SemesterTables
+          semesterValue={this.state.semesterChosen}
+          chosenCourses={this.state.checkedCourses} />
       </div>
     );
   }
