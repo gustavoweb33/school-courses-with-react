@@ -6,7 +6,7 @@ const searchForm = (props) => {
 
     return (
         <div className='search'>
-            <form >
+            <div >
                 <label htmlFor='semester'>Choose a semester:</label>
                 <select id='semester' onChange={props.submit}>
                     
@@ -16,8 +16,8 @@ const searchForm = (props) => {
                     <option value={3}>3</option>
                     <option value={4}>4</option>
                 </select>
-                <button onClick={props.click}>Submit</button>
-            </form>
+                
+            </div>
             Course: <input type='text' onChange={props.change} />
 
         </div>

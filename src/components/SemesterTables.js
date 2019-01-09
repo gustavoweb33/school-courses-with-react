@@ -11,7 +11,14 @@ const SemesterTables = (props) => {
                 <h3>Smester:  {userChosenSemester}</h3>
 
                 {
-                    userChosenCourses.map(course => <li key={course}> {course}</li>)
+                    userChosenCourses.map((course, index) => {
+                        return (
+                            <div key={index}>
+                                <li key={course}> {course}</li>
+                                <button value={course} onClick={props.delete}>Delete</button>
+                            </div>
+                        )
+                    })
                 }
 
             </div>

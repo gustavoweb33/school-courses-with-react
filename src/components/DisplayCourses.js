@@ -3,8 +3,9 @@ import CourseCard from './CoursesCard'
 
 const DisplayCourses = (props) => {
     const coursesArray = [];
+    console.log(props.newCourses[1].creditHours)
     for (let i = 0; i < props.newCourses.length; i++) {
-        coursesArray.push(props.newCourses[i].course_id)
+        coursesArray.push(props.newCourses[i].courseId)
     }
 
     return (
