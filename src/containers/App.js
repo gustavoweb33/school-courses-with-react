@@ -5,6 +5,7 @@ import SemesterTables from '../components/SemesterTables';
 import courses from '../courses';
 
 
+
 class App extends Component {
   constructor() {
     super();
@@ -12,8 +13,6 @@ class App extends Component {
       courses: courses,
       searchCourses: [],
       checkedCourses: [],
-      previousState: {},
-      semesterCourses: [],
       semesterChosen: 0
     }
   }
@@ -31,13 +30,14 @@ class App extends Component {
     const filteredCourses = schoolCourses.filter((course) => {
       return course.prefix.toLowerCase().includes(name.toLowerCase());
     });
+    
 
     this.setState({ searchCourses: filteredCourses })
 
   }
 
   getSemesterValue = (event) => {
-    event.preventDefault();
+   
     const selectedSemester = Number(event.target.value);
     this.setState({ semesterChosen: selectedSemester })
   }
@@ -46,6 +46,11 @@ class App extends Component {
     const checkedCoursesList = [...this.state.checkedCourses];
     const courseIndex = checkedCoursesList.indexOf(event.target.value)
 
+    //TODO: ensure courses that were added remain checked
+    if (checkedCoursesList.includes(event.target.value)) {
+      return;
+    }
+
     if (!(this.state.checkedCourses.includes(event.target.value)) && event.target.checked) {
       checkedCoursesList.push(event.target.value)
     } //to remove the courses that were previously selected and not remove them by index.
@@ -53,18 +58,24 @@ class App extends Component {
       checkedCoursesList.splice(courseIndex, 1);
     }
 
-//TODO: ensure courses that were added remain checked
-    // if (checkedCoursesList.includes(event.target.value)) {
-    //   event.target.checked = true;
-    //   console.log('already included')
-    // }
-
     this.setState({ checkedCourses: checkedCoursesList });
   }
 
+  deleteCourse = (event) => {
+   
+    const courseToDelete = event.target.value;
+    const previouslyCheckedCourses = [...this.state.checkedCourses];
+  
+    for(let i = 0; i < previouslyCheckedCourses.length; i++) {
+      if(courseToDelete === previouslyCheckedCourses[i]) {
+        previouslyCheckedCourses.splice(i, 1);
+
+      }
+    }
+      this.setState({checkedCourses: previouslyCheckedCourses});
+  }
 
   render() {
-    console.log(this.state.checkedCourses)
     let searchCoursesChecked = null;
     if (this.state.searchCourses.length !== 0) {
 
@@ -86,7 +97,8 @@ class App extends Component {
         {searchCoursesChecked}
         <SemesterTables
           semesterValue={this.state.semesterChosen}
-          chosenCourses={this.state.checkedCourses} />
+          chosenCourses={this.state.checkedCourses}
+          delete={this.deleteCourse} />
       </div>
     );
   }
