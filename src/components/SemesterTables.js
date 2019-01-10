@@ -6,6 +6,7 @@ const SemesterTables = (props) => {
     //console.log(props.courses)
     const userChosenSemester = props.semesterValue;
     const userChosenCourses = props.chosenCourses;
+    let totalCreditHours = 0;
 
     const filteredCourses = [];
     for (let i = 0; i < props.courses.length; i++) {
@@ -14,6 +15,13 @@ const SemesterTables = (props) => {
         }
     }
 
+   
+
+    filteredCourses.forEach(course => totalCreditHours += course.creditHours)
+    
+    if(totalCreditHours >= 27) {
+        alert('You have exceded to maximum number of hours')
+    }
 
     return (
         <div className='grid-container'>
@@ -43,6 +51,8 @@ const SemesterTables = (props) => {
                         })
                     }
                 </div>
+                <h3>Total Credit Hours: {totalCreditHours}</h3>
+
             </div>
         </div>
     );
