@@ -8,7 +8,7 @@ const searchForm = (props) => {
         <div className='search'>
             <div >
                 <label htmlFor='semester'>Choose a semester:</label>
-                <select id='semester' onChange={props.submit}>
+                <select id='semester' onChange={props.semester}>
                     
                     <option >Choose a semester</option>
                     <option value={1}>1</option>

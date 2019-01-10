@@ -6,11 +6,12 @@
 .grid-container div {
     text-align: center;
     margin: 10px;
-    border: 1px solid black;
-    width: 30%;
-    margin-left: 37%;
+    
+    width: 50%;
+    margin-left: 27%;
 }
 
-ul {
+li {
     list-style-type: none;
+    border: 1px solid black;
 }

@@ -13,11 +13,12 @@ class App extends Component {
       courses: courses,
       searchCourses: [],
       checkedCourses: [],
+      totalCreditHours: 0,
       semesterChosen: 0
     }
   }
 
-  getInputValue = (event) => {
+  getCourseSearchValue = (event) => {
     const name = event.target.value;
 
     if (name.length === 0) {
@@ -30,49 +31,41 @@ class App extends Component {
     const filteredCourses = schoolCourses.filter((course) => {
       return course.prefix.toLowerCase().includes(name.toLowerCase());
     });
-    
+
 
     this.setState({ searchCourses: filteredCourses })
-
+    
   }
 
   getSemesterValue = (event) => {
-   
     const selectedSemester = Number(event.target.value);
     this.setState({ semesterChosen: selectedSemester })
   }
 
   getCheckBoxValue = (event) => {
     const checkedCoursesList = [...this.state.checkedCourses];
-    const courseIndex = checkedCoursesList.indexOf(event.target.value)
-
-    //TODO: ensure courses that were added remain checked
-    if (checkedCoursesList.includes(event.target.value)) {
-      return;
-    }
 
     if (!(this.state.checkedCourses.includes(event.target.value)) && event.target.checked) {
       checkedCoursesList.push(event.target.value)
-    } //to remove the courses that were previously selected and not remove them by index.
-    else if (checkedCoursesList.includes(checkedCoursesList[courseIndex])) {
-      checkedCoursesList.splice(courseIndex, 1);
+    }
+    else if (checkedCoursesList.includes(event.target.value)) {
+      return;
     }
 
     this.setState({ checkedCourses: checkedCoursesList });
   }
 
   deleteCourse = (event) => {
-   
     const courseToDelete = event.target.value;
     const previouslyCheckedCourses = [...this.state.checkedCourses];
-  
-    for(let i = 0; i < previouslyCheckedCourses.length; i++) {
-      if(courseToDelete === previouslyCheckedCourses[i]) {
+
+    for (let i = 0; i < previouslyCheckedCourses.length; i++) {
+      if (courseToDelete === previouslyCheckedCourses[i]) {
         previouslyCheckedCourses.splice(i, 1);
 
       }
     }
-      this.setState({checkedCourses: previouslyCheckedCourses});
+    this.setState({ checkedCourses: previouslyCheckedCourses });
   }
 
   render() {
@@ -91,17 +84,21 @@ class App extends Component {
       <div >
         <SearchForm
           courses={this.state.courses}
-          change={this.getInputValue}
-          submit={this.getSemesterValue} />
+          change={this.getCourseSearchValue}
+          semester={this.getSemesterValue} />
 
         {searchCoursesChecked}
         <SemesterTables
           semesterValue={this.state.semesterChosen}
           chosenCourses={this.state.checkedCourses}
-          delete={this.deleteCourse} />
+          deleteCourse={this.deleteCourse} 
+          courses={this.state.courses}/>
       </div>
     );
   }
 }
 
 export default App;
+
+
+//display credit hours along with the course numbers and create a sum for the total credit hours
