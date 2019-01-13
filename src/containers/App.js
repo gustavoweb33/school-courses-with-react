@@ -13,7 +13,6 @@ class App extends Component {
       courses: courses,
       searchCourses: [],
       checkedCourses: [],
-      totalCreditHours: 0,
       semesterChosen: 0
     }
   }
@@ -39,7 +38,8 @@ class App extends Component {
 
   getSemesterValue = (event) => {
     const selectedSemester = Number(event.target.value);
-    this.setState({ semesterChosen: selectedSemester })
+    this.setState({ semesterChosen: selectedSemester });
+
   }
 
   getCheckBoxValue = (event) => {

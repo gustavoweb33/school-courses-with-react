@@ -4,14 +4,17 @@
 }
 
 .grid-container div {
-    text-align: center;
+
     margin: 10px;
-    
     width: 50%;
-    margin-left: 27%;
 }
 
 li {
+    text-align: center;
     list-style-type: none;
     border: 1px solid black;
+}
+
+button {
+    text-align: center;
 }
