@@ -1,8 +1,8 @@
-.search {
-  font-size: 2em;
-  margin-top: 60px;
+.gridContainer {
+    display: grid;
+    border: 1px solid red;
 }
 
-.search input {
-  height: 20px;
+.gridChildren {
+    border: 1px solid black;
 }

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import SearchForm from '../components/SearchForm';
 import DisplayCourse from '../components/DisplayCourses';
 import SemesterTables from '../components/SemesterTables';
+import FullSemesterTable from '../components/FullSemester';
 import courses from '../courses';
+import '../containers/App.css'
 
 
 
@@ -33,7 +35,7 @@ class App extends Component {
 
 
     this.setState({ searchCourses: filteredCourses })
-    
+
   }
 
   getSemesterValue = (event) => {
@@ -81,18 +83,26 @@ class App extends Component {
 
 
     return (
-      <div >
-        <SearchForm
-          courses={this.state.courses}
-          change={this.getCourseSearchValue}
-          semester={this.getSemesterValue} />
-
+      <div className={'gridContainer'}>
+        <div className={'gridChildren'}>
+          <SearchForm
+            courses={this.state.courses}
+            change={this.getCourseSearchValue}
+            semester={this.getSemesterValue} />
+        </div>
         {searchCoursesChecked}
-        <SemesterTables
-          semesterValue={this.state.semesterChosen}
-          chosenCourses={this.state.checkedCourses}
-          deleteCourse={this.deleteCourse} 
-          courses={this.state.courses}/>
+        <div className={'gridChildren'}>
+          <SemesterTables
+            semesterValue={this.state.semesterChosen}
+            chosenCourses={this.state.checkedCourses}
+            deleteCourse={this.deleteCourse}
+            courses={this.state.courses} />
+        </div>
+        <div className={'gridChildren'}>
+          <FullSemesterTable
+            chosenCourses={this.state.checkedCourses}
+            courses={this.state.courses} />
+        </div>
       </div>
     );
   }

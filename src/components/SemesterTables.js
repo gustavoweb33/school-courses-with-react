@@ -2,6 +2,8 @@ import React from 'react';
 import '../containers/SemesterTables.css';
 import style from '../containers/errorStyles.module.css';
 
+export let globalFilteredCourses = [];
+
 const SemesterTables = (props) => {
     let warningStyle = null;
     const errorMessage = <p>You have surpassed the maximum credit hours allowed</p>;
@@ -17,13 +19,13 @@ const SemesterTables = (props) => {
         }
     }
 
-
     filteredCourses.forEach(course => totalCreditHours += course.creditHours)
 
     if (totalCreditHours >= 21) {
         warningStyle = style.error;
     }
 
+    globalFilteredCourses = filteredCourses;
     return (
         <div className='grid-container'>
             <div>
@@ -58,6 +60,7 @@ const SemesterTables = (props) => {
             </div>
         </div>
     );
+
 }
 
 export default SemesterTables;
