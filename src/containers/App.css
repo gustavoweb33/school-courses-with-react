@@ -1,8 +1,0 @@
-.gridContainer {
-    display: grid;
-    border: 1px solid red;
-}
-
-.gridChildren {
-    border: 1px solid black;
-}
