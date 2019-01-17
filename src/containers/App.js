@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import SearchForm from '../components/SearchForm';
+import SearchCourses from '../components/SearchCourses';
 import DisplayCourse from '../components/DisplayCourses';
-import SemesterTables from '../components/SemesterTables';
+import SelectedCourses from '../components/SelectedCourses';
 import FullSemesterTable from '../components/FullSemester';
 import courses from '../courses';
-import '../containers/App.css'
+import style from '../containers/App.module.css'
 
 
 
@@ -75,30 +75,33 @@ class App extends Component {
     if (this.state.searchCourses.length !== 0) {
 
       searchCoursesChecked = (
-        <div>
-          <DisplayCourse newCourses={this.state.searchCourses} checkCheckbox={this.getCheckBoxValue} />
+        <div className={style.displayCourses}>
+        <h3>Courses Displayed</h3>
+          <DisplayCourse 
+          newCourses={this.state.searchCourses} 
+          checkCheckbox={this.getCheckBoxValue} />
         </div>
       );
     }
 
 
     return (
-      <div className={'gridContainer'}>
-        <div className={'gridChildren'}>
-          <SearchForm
+      <div className={style.gridContainer}>
+        <div>
+          <SearchCourses
             courses={this.state.courses}
             change={this.getCourseSearchValue}
             semester={this.getSemesterValue} />
         </div>
         {searchCoursesChecked}
-        <div className={'gridChildren'}>
-          <SemesterTables
+        <div className={style.selectedCourses} >
+          <SelectedCourses
             semesterValue={this.state.semesterChosen}
             chosenCourses={this.state.checkedCourses}
             deleteCourse={this.deleteCourse}
             courses={this.state.courses} />
         </div>
-        <div className={'gridChildren'}>
+        <div >
           <FullSemesterTable
             chosenCourses={this.state.checkedCourses}
             courses={this.state.courses} />

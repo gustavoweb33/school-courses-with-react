@@ -1,5 +1,7 @@
 import React from 'react';
-import CourseCard from './CoursesCard'
+import CourseCard from './CoursesCard';
+import style from '../containers/CourseCard.module.css';
+// containers\CourseCard.module.css
 
 const DisplayCourses = (props) => {
     const coursesArray = [];
@@ -9,10 +11,13 @@ const DisplayCourses = (props) => {
     }
 
     return (
-        <div>
+        <div className={[style.grid, style.gridTemplate].join(' ')}>
             {
                 coursesArray.map((course, i) => {
-                    return <CourseCard key={i} enrollment={course} checkCheckbox={props.checkCheckbox} />
+                    return <CourseCard 
+                    key={i} 
+                    course={course} 
+                    checkCheckbox={props.checkCheckbox}/>
                 })
             }
           

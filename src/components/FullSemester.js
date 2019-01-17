@@ -1,5 +1,5 @@
 import React from 'react';
-import { globalFilteredCourses } from './SemesterTables';
+import { globalFilteredCourses } from './SelectedCourses';
 
 const FullSemesterTable = (props) => {
 
