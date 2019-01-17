@@ -1,0 +1,17 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+.displayCourses {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    border: 1px solid;
+}
+
+.selectedCourses {
+    grid-column-start: 1;
+    grid-row-end: 4;
+}
+

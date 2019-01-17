@@ -1,0 +1,12 @@
+.grid {
+    display: grid;
+    
+}
+
+.gridTemplate {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.border {
+    border-right: 1px solid black;
+}
