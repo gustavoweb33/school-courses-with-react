@@ -76,10 +76,10 @@ class App extends Component {
 
       searchCoursesChecked = (
         <div className={style.displayCourses}>
-        <h3>Courses Displayed</h3>
-          <DisplayCourse 
-          newCourses={this.state.searchCourses} 
-          checkCheckbox={this.getCheckBoxValue} />
+          <h3>Courses Displayed</h3>
+          <DisplayCourse
+            newCourses={this.state.searchCourses}
+            checkCheckbox={this.getCheckBoxValue} />
         </div>
       );
     }
@@ -101,7 +101,7 @@ class App extends Component {
             deleteCourse={this.deleteCourse}
             courses={this.state.courses} />
         </div>
-        <div >
+        <div className={style.detailedSemester}>
           <FullSemesterTable
             chosenCourses={this.state.checkedCourses}
             courses={this.state.courses} />

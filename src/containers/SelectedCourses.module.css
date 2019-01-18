@@ -2,17 +2,12 @@
     margin-top: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-}
-
-.grid-container div {
-    margin: 10px;
-   
+    
 }
 
 li {
     text-align: center;
     list-style-type: none;
-    border: 1px solid black;
 }
 
 
@@ -25,16 +20,27 @@ li {
     font-weight: 600;
 }
 
-.padding {
-    padding-bottom: 5%;
+.space {
+    margin-bottom: 5%;
+    margin-right: 5%;
  }
 
 button {
-    width: 100%;
+    background: rgb(255, 221, 217);
     border-radius: 25px;
+    border: 1px solid rgb(255, 221, 217);
 }
 
 button:hover {
-    background: rgb(250, 186, 186);
-    color: black;
+    border: 1px solid rgb(192, 57, 43);
+    background: rgb(192, 57, 43);
+    color: white;
+}
+
+.subGridContainer {
+    display: grid;
+    border: 0.5px solid black;
+    border-radius: 25px;
+    grid-template-columns: 2fr 0.5fr;
+    align-items: center;
 }

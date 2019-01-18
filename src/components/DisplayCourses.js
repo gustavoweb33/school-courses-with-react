@@ -1,11 +1,11 @@
 import React from 'react';
 import CourseCard from './CoursesCard';
 import style from '../containers/CourseCard.module.css';
-// containers\CourseCard.module.css
+
 
 const DisplayCourses = (props) => {
     const coursesArray = [];
-    //console.log(props.newCourses[1].creditHours)
+   
     for (let i = 0; i < props.newCourses.length; i++) {
         coursesArray.push(props.newCourses[i].courseId)
     }

@@ -47,12 +47,12 @@ const SemesterTables = (props) => {
 
                             return (
 
-                                <div key={index} className={style.padding}>
+                                <div key={index} className={[style.space,  style.subGridContainer].join(' ')}>
 
                                     <li 
                                         key={course.courseId}>
                                         {course.courseId}
-                                        ({course.creditHours})
+                                         ({course.creditHours})
                                     </li>
                                     <button value={course.courseId} onClick={props.deleteCourse}>Delete</button>
                                 </div>

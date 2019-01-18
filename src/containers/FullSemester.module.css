@@ -1,0 +1,15 @@
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.border {
+    border: 0.5px solid black;
+    padding-left: 20px;
+}
+
+h2 {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    text-align: center;
+}
