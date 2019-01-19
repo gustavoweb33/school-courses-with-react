@@ -3,10 +3,12 @@ import style from '../containers/SelectedCourses.module.css';
 //import style from '../containers/errorStyles.module.css';
 
 export let globalFilteredCourses = [];
+export let globalTotalCreditHours = 0;
 
 const SemesterTables = (props) => {
     let warningStyle = null;
-    const errorMessage = <p>You have surpassed the maximum credit hours allowed</p>;
+    const errorMessage = <p>You have surpassed the maximum credit hours allowed. 
+    You must delete some courses before adding more.</p>;
 
     const userChosenSemester = props.semesterValue;
     const userChosenCourses = props.chosenCourses;
@@ -21,13 +23,14 @@ const SemesterTables = (props) => {
 
     filteredCourses.forEach(course => totalCreditHours += course.creditHours)
 
-    if (totalCreditHours >= 21) {
+    if (totalCreditHours >= props.maxHoursAllowed) {
         warningStyle = style.errorColor;
     }
-
+    globalTotalCreditHours = totalCreditHours;
     globalFilteredCourses = filteredCourses;
+  
     return (
-        <div>
+        <div className={style.backColor}>
             <div>
                 <h3>Semester:  {userChosenSemester}</h3>
 

@@ -2,9 +2,9 @@ import React from 'react';
 import { globalFilteredCourses } from './SelectedCourses';
 import style from '../containers/FullSemester.module.css';
 
-const FullSemesterTable = (props) => {
+const FullSemesterTable = () => {
 
-
+console.log(globalFilteredCourses);
 
     return (
         <div className={style.grid}>
@@ -15,11 +15,12 @@ const FullSemesterTable = (props) => {
                         <div 
                         key={course.courseId} 
                         className={style.border}>
-                            <p>{course.courseId}: {course.description}</p>
+                            <p>{course.courseId}: {course.description} </p>
+                            <span>{course.creditHours}</span>
                         </div>
-
+                      
                     )
-                })
+                })  
             }
         </div>
     )
