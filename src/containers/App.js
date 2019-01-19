@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import courses from '../courses';
 import SearchCourses from '../components/SearchCourses';
 import DisplayCourse from '../components/DisplayCourses';
 import SelectedCourses from '../components/SelectedCourses';
+import { globalTotalCreditHours } from '../components/SelectedCourses';
 import FullSemesterTable from '../components/FullSemester';
-import courses from '../courses';
 import style from '../containers/App.module.css'
 
 
@@ -15,7 +16,8 @@ class App extends Component {
       courses: courses,
       searchCourses: [],
       checkedCourses: [],
-      semesterChosen: 0
+      semesterChosen: 0,
+      maxCreditHoursAllowed: 21
     }
   }
 
@@ -45,6 +47,10 @@ class App extends Component {
   }
 
   getCheckBoxValue = (event) => {
+    if (globalTotalCreditHours >= this.state.maxCreditHoursAllowed) {
+      return;
+    }
+
     const checkedCoursesList = [...this.state.checkedCourses];
 
     if (!(this.state.checkedCourses.includes(event.target.value)) && event.target.checked) {
@@ -87,7 +93,7 @@ class App extends Component {
 
     return (
       <div className={style.gridContainer}>
-        <div>
+        <div className={style.searchedCourses}>
           <SearchCourses
             courses={this.state.courses}
             change={this.getCourseSearchValue}
@@ -99,12 +105,11 @@ class App extends Component {
             semesterValue={this.state.semesterChosen}
             chosenCourses={this.state.checkedCourses}
             deleteCourse={this.deleteCourse}
+            maxHoursAllowed={this.state.maxCreditHoursAllowed}
             courses={this.state.courses} />
         </div>
         <div className={style.detailedSemester}>
-          <FullSemesterTable
-            chosenCourses={this.state.checkedCourses}
-            courses={this.state.courses} />
+          <FullSemesterTable />
         </div>
       </div>
     );
