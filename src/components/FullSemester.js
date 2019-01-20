@@ -4,8 +4,6 @@ import style from '../containers/FullSemester.module.css';
 
 const FullSemesterTable = () => {
 
-console.log(globalFilteredCourses);
-
     return (
         <div className={style.grid}>
             <h2>Complete Semester</h2>
