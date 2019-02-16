@@ -1,17 +1,19 @@
 import React from 'react';
 
-const CoursesCard = (props) => {
+
+const CoursesCard = ({course, checkCheckbox}) => {
+    const disabled = false;
 
     return (
 
         <div >
             <input type='checkbox'
-                value={props.course}
-                onClick={props.checkCheckbox}
-            />
-            {props.course}
+                value={course}
+                onClick={checkCheckbox}
+                disabled = {disabled}
+           />
+            {course}
         </div>
     );
 }
-
 export default CoursesCard;

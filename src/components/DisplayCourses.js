@@ -1,13 +1,14 @@
 import React from 'react';
 import CourseCard from './CoursesCard';
-import style from '../containers/CourseCard.module.css';
+import style from '../containers/DisplayCourses.module.css';
 
 
-const DisplayCourses = (props) => {
+
+const DisplayCourses = ({newCourses, checkCheckbox}) => {
     const coursesArray = [];
    
-    for (let i = 0; i < props.newCourses.length; i++) {
-        coursesArray.push(props.newCourses[i].courseId)
+    for (let i = 0; i < newCourses.length; i++) {
+        coursesArray.push(newCourses[i].courseId)
     }
 
     return (
@@ -17,7 +18,7 @@ const DisplayCourses = (props) => {
                     return <CourseCard 
                     key={i} 
                     course={course} 
-                    checkCheckbox={props.checkCheckbox}/>
+                    checkCheckbox={checkCheckbox}/>
                 })
             }
           

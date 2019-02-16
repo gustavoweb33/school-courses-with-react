@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import courses from '../courses';
 import SearchCourses from '../components/SearchCourses';
 import DisplayCourse from '../components/DisplayCourses';
-import SelectedCourses from '../components/SelectedCourses';
-import { globalTotalCreditHours } from '../components/SelectedCourses';
-import FullSemesterTable from '../components/FullSemester';
-import style from '../containers/App.module.css'
-
-
+import DividedSemester from '../components/DividedSemester';
+import { globalSemester } from '../components/DividedSemester';
+import SelectSubject from '../components/SelectSubject';
+import RenderCourses from '../components/RenderCourses';
+import style from '../containers/App.module.css';
 
 class App extends Component {
   constructor() {
@@ -16,19 +15,20 @@ class App extends Component {
       courses: courses,
       searchCourses: [],
       checkedCourses: [],
+      subjectCourses: [],
       semester1: [],
       semester2: [],
       semester3: [],
       semester4: [],
       semesterChosen: 0,
-      maxCreditHoursAllowed: 21
+      maxCreditHoursAllowed: 18
     }
   }
 
   getCourseSearchValue = (event) => {
-    const name = event.target.value;
+    const searchedCourse = event.target.value;
 
-    if (name.length === 0) {
+    if (searchedCourse.length === 0) {
       this.setState({ searchCourses: [] });
       return;
     }
@@ -36,7 +36,7 @@ class App extends Component {
     const schoolCourses = this.state.courses;
 
     const filteredCourses = schoolCourses.filter((course) => {
-      return course.prefix.toLowerCase().includes(name.toLowerCase());
+      return course.prefix.toLowerCase().includes(searchedCourse.toLowerCase());
     });
 
 
@@ -51,90 +51,143 @@ class App extends Component {
   }
 
   getCheckBoxValue = (event) => {
-    if (globalTotalCreditHours >= this.state.maxCreditHoursAllowed) {
-      return;
-    }
 
-    const checkedCoursesList = [...this.state.checkedCourses];
+    const allSemesters = [...this.state.semester1, ...this.state.semester2, ...this.state.semester3, ...this.state.semester4];
 
+    if (!(allSemesters.includes(event.target.value))
+      && event.target.checked) {
 
+      switch (this.state.semesterChosen) {
+        case 1:
+          if (globalSemester.oneTotalHours >= this.state.maxCreditHoursAllowed) {
+            alert('too many hours')
+            return;
+          }
+          const semesterOneCheckedCourses = [...this.state.semester1];
+          semesterOneCheckedCourses.push(event.target.value);
+          this.setState({ semester1: semesterOneCheckedCourses });
+          break;
 
-    if (!(this.state.checkedCourses.includes(event.target.value)) && event.target.checked) {
-      checkedCoursesList.push(event.target.value)
-    }
-    else if (checkedCoursesList.includes(event.target.value)) {
-      return;
-    }
+        case 2:
+          if (globalSemester.twoTotalHours >= this.state.maxCreditHoursAllowed) {
+            alert('too many hours')
+            return;
+          }
+          const semesterTwoCheckedCourses = [...this.state.semester2];
+          semesterTwoCheckedCourses.push(event.target.value);
+          this.setState({ semester2: semesterTwoCheckedCourses });
+          break;
 
+        case 3:
+          if (globalSemester.threeTotalHours >= this.state.maxCreditHoursAllowed) {
+            alert('too many hours')
+            return;
 
-    // if (this.state.semesterChosen === 1) {
-    //   semesterOneCheckedCourses.push(event.target.value);
-    //   this.setState({ semesterOne: semesterOneCheckedCourses });
-    //   console.log(`Semester One: ${this.state.semesterOne}`);
+          }
+          const semesterThreeCheckedCourses = [...this.state.semester3];
+          semesterThreeCheckedCourses.push(event.target.value);
+          this.setState({ semester3: semesterThreeCheckedCourses });
+          break;
 
-    // }
-    // else if (this.state.semesterChosen === 2) {
-    //   semesterTwoCheckedCourses.push(event.target.value);
-    //   this.setState({ semesterTwo: semesterTwoCheckedCourses });
-    //   console.log(`Semester two: ${semesterTwoCheckedCourses}`);
-    // }
+        case 4:
+          if (globalSemester.fourTotalHours >= this.state.maxCreditHoursAllowed) {
+            alert('too many hours')
+            return;
+          }
+          const semesterFourCheckedCourses = [...this.state.semester4];
+          semesterFourCheckedCourses.push(event.target.value);
+          this.setState({ semester4: semesterFourCheckedCourses });
+          break;
 
-    switch (this.state.semesterChosen) {
-      case 1:
-        const semesterOneCheckedCourses = [...this.state.semester1];
-        semesterOneCheckedCourses.push(event.target.value);
-        this.setState({ semester1: semesterOneCheckedCourses });
-        break;
-
-      case 2:
-        const semesterTwoCheckedCourses = [...this.state.semester2];
-        semesterTwoCheckedCourses.push(event.target.value);
-        this.setState({ semester2: semesterTwoCheckedCourses });
-        break;
-
-      case 3:
-        const semesterThreeCheckedCourses = [...this.state.semester3];
-        semesterThreeCheckedCourses.push(event.target.value);
-        this.setState({ semester3: semesterThreeCheckedCourses });
-        break;
-
-      case 4:
-        const semesterFourCheckedCourses = [...this.state.semester4];
-        semesterFourCheckedCourses.push(event.target.value);
-        this.setState({ semester4: semesterFourCheckedCourses });
-        break;
-
-      default:
-        console.log('default');
-
-    }
-
-    this.setState({ checkedCourses: checkedCoursesList });
-  }
-
-  deleteCourse = (event) => {
-    const courseToDelete = event.target.value;
-    const previouslyCheckedCourses = [...this.state.checkedCourses];
-
-    for (let i = 0; i < previouslyCheckedCourses.length; i++) {
-      if (courseToDelete === previouslyCheckedCourses[i]) {
-        previouslyCheckedCourses.splice(i, 1);
+        default:
+          alert('Please choose a semester')
 
       }
     }
-    this.setState({ checkedCourses: previouslyCheckedCourses });
+    else if (allSemesters.includes(event.target.value)) {
+      return;
+    }
+
+
+
+  }
+
+
+  removeClass = (event) => {
+
+    const course = event.target.value;
+    const userChosenSemester = this.state.semesterChosen;
+    let semester = [];
+
+    switch (userChosenSemester) {
+      case 1:
+        semester = [...this.state.semester1];
+        break;
+
+      case 2:
+        semester = [...this.state.semester2];
+        break;
+
+      case 3:
+        semester = [...this.state.semester3];
+        break;
+
+      case 4:
+        semester = [...this.state.semester4];
+        break;
+
+      default:
+        alert('choose a semester');
+    }
+
+    for (let i = 0; i < semester.length; i++) {
+      if (course === semester[i]) {
+        semester.splice(i, 1);
+      }
+    }
+
+    switch (userChosenSemester) {
+      case 1:
+        this.setState({ semester1: semester });
+        break;
+
+      case 2:
+        this.setState({ semester2: semester });
+        break;
+
+      case 3:
+        this.setState({ semester3: semester });
+        break;
+
+      case 4:
+        this.setState({ semester4: semester });
+        break;
+
+      default:
+        alert('choose a semester');
+    }
+  }
+
+  getSelectedSubject = (event) => {
+    const subject = event.target.value;
+    const courses = this.state.courses;
+
+    if(subject === ' ') {
+      return;
+    }
+
+    const filteredCourses = courses.filter(course => course.courseId.toLowerCase().includes(subject.toLowerCase()));
+
+    this.setState({ subjectCourses: filteredCourses });
   }
 
   render() {
-
-    console.log(this.state.semester1, this.state.semester2, this.state.semester3, this.state.semester4 )
-
     let searchCoursesChecked = null;
     if (this.state.searchCourses.length !== 0) {
 
       searchCoursesChecked = (
         <div className={style.displayCourses}>
-          <h3>Courses Displayed</h3>
+
           <DisplayCourse
             newCourses={this.state.searchCourses}
             checkCheckbox={this.getCheckBoxValue} />
@@ -144,25 +197,34 @@ class App extends Component {
 
 
     return (
+
       <div className={style.gridContainer}>
+     
         <div className={style.searchedCourses}>
           <SearchCourses
-            courses={this.state.courses}
             change={this.getCourseSearchValue}
             semester={this.getSemesterValue} />
+          
+          <SelectSubject
+            courses={this.state.courses}
+            getSubject={this.getSelectedSubject} />
         </div>
-        {searchCoursesChecked}
-        <div className={style.selectedCourses} >
-          <SelectedCourses
-            semesterValue={this.state.semesterChosen}
-            chosenCourses={this.state.checkedCourses}
-            deleteCourse={this.deleteCourse}
-            maxHoursAllowed={this.state.maxCreditHoursAllowed}
-            courses={this.state.courses} />
+
+        <div className={style.color}>
+          <h3>Courses</h3>
+          <RenderCourses
+            displayCourses={this.state.subjectCourses}
+            checkCheckbox={this.getCheckBoxValue} />
         </div>
-        <div className={style.detailedSemester}>
-          <FullSemesterTable />
-        </div>
+
+        <DividedSemester
+          semesterOne={this.state.semester1}
+          semesterTwo={this.state.semester2}
+          semesterThree={this.state.semester3}
+          semesterFour={this.state.semester4}
+          delete={this.removeClass}
+          courses={this.state.courses} />
+
       </div>
     );
   }
@@ -170,8 +232,3 @@ class App extends Component {
 
 export default App;
 
-
-//TODO: 1) update FullSemesterTable to show all divided semesters 
-      //2) create new components to render courses corresponding with their respectfull semester
-      //3) keep track of the total credit hour per semester. ensure hours dont surpass the maximum CH
-      //4) add a delete function to remove courses from specific semeseter
