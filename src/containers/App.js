@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import courses from '../courses';
 import SearchCourses from '../components/SearchCourses';
-import DisplayCourse from '../components/DisplayCourses';
 import DividedSemester from '../components/DividedSemester';
 import { globalSemester } from '../components/DividedSemester';
 import SelectSubject from '../components/SelectSubject';
@@ -182,18 +181,7 @@ class App extends Component {
   }
 
   render() {
-    let searchCoursesChecked = null;
-    if (this.state.searchCourses.length !== 0) {
-
-      searchCoursesChecked = (
-        <div className={style.displayCourses}>
-
-          <DisplayCourse
-            newCourses={this.state.searchCourses}
-            checkCheckbox={this.getCheckBoxValue} />
-        </div>
-      );
-    }
+    
 
 
     return (
