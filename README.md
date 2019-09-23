@@ -1,10 +1,14 @@
 
 A first attampt at a react project. 
 It takes school courses from a static files and adds them to the selected semester. 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
 
 ![](img/school-courses.png)
 
+
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ## Available Scripts
 
 In the project directory, you can run:
